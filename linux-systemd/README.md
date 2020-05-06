@@ -1,15 +1,16 @@
-# Systemd service for MinIO
+# Systemd service 运行 MinIO
 
-Systemd script for MinIO server.
+Systemd 脚本为 MinIO服务器进行设计和使用的方式.
 
-## Installation
+## 安装
 
-- Systemd script is configured to run the binary from /usr/local/bin/.
-- Download the binary. Find the relevant links for the binary at https://min.io/download/#linux.
+- 将Systemd脚本配置为从/usr/local/bin /运行二进制文件。
+- 下载二进制文件。 在http://www.minio.org.cn/ 中找到二进制文件的相关链接。
 
-## Create default configuration
+## 创建默认配置
 
-This file serves as input to MinIO systemd service. Use this file to add `MINIO_VOLUMES` with the correct paths, `MINIO_OPTS` to add MinIO server options like `certs-dir`, `address`. MinIO credentials can be `MINIO_ACCESS_KEY` and `MINIO_SECRET_KEY` in this file as well.
+该文件用作MinIO系统服务的输入。 使用此文件可添加具有正确路径的“ MINIO_VOLUMES”，可使用“ MINIO_OPTS”来添加MinIO服务器选项，例如“ certs-dir”，“ address”。 在此文件中，MinIO凭据也可以是“ MINIO_ACCESS_KEY”和“ MINIO_SECRET_KEY”。
+
 
 ```sh
 $ cat <<EOT >> /etc/default/minio
@@ -27,7 +28,7 @@ EOT
 
 ## Systemctl
 
-Download `minio.service` in  `/etc/systemd/system/`
+下载 `minio.service` 在  `/etc/systemd/system/`
 ```
 ( cd /etc/systemd/system/; curl -O https://raw.githubusercontent.com/minio/minio-service/master/linux-systemd/minio.service )
 ```
@@ -38,17 +39,17 @@ Note: If you want to bind to a port < 1024 with the service running as a regular
 AmbientCapabilities=CAP_NET_BIND_SERVICE
 WorkingDirectory=/usr/local/
 ```
-### Enable startup on boot
+### enable开机启动
 ```
 systemctl enable minio.service
 ```
 
-### Disable MinIO service
+### 关闭 MinIO 服务
 ```
 systemctl disable minio.service
 ```
 
-## Note
+## 提示
 
-- Replace ``User=minio-user`` and ``Group=minio-user`` in minio.service file with your local setup.
+- 替换 ``User=minio-user`` and ``Group=minio-user`` in minio.service file with your local setup.
 - Ensure that ``MINIO_VOLUMES`` source has appropirate write access.
